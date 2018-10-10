@@ -12,12 +12,18 @@ package proyectonotas;
 public class Alumno {
     private String nombre;
     private int nota;
-    
-    public Alumno(String nombre, int nota) {
+    private int asignatura;//1-Mates; 2-Lengua
+
+    public Alumno(String nombre, int nota, int asignatura) {
         this.nombre = nombre;
         this.nota = nota;
+        this.asignatura = asignatura;
     }
 
+    public int getAsignatura() {
+        return asignatura;
+    }
+  
     public String getNombre() {
         return nombre;
     }
@@ -36,8 +42,8 @@ public class Alumno {
 
     @Override
     public String toString() {
-        String texto="NOMBRE: "+nombre+" NOTA: "+obtenerPalabraPorNota(nota);
-        
+        String texto="ASIGNATURA:\n"+obtenerNombreAsignaturaPorNumero(asignatura)+"\nNOMBRE: \n"+nombre+"\n NOTA:\n"+obtenerPalabraPorNota(nota);
+        texto+="\n**************************************";
         return texto; //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -64,6 +70,12 @@ public class Alumno {
         }
         return "SOBRESALIENTE";
             
+    }
+
+    private String obtenerNombreAsignaturaPorNumero(int asignatura) {
+       if (asignatura==1)
+       {return "MATEMÁTICAS";}
+       return "LENGUA";
     }
     
     

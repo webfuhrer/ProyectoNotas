@@ -19,12 +19,23 @@ import java.util.logging.Logger;
  * @author luis
  */
 public class AccesoFichero {
-    static String ruta="C:\\notas\\notas.csv";
+    static String ruta_lengua="C:\\notas\\notas_lengua.csv";
+    static String ruta_mates="C:\\notas\\notas_mates.csv";
     static String separador=",";
 
     static void grabarAlumno(Alumno elmalodelaclase) {
         try {
+            String ruta="";
+            if (elmalodelaclase.getAsignatura()==1)
+            {
+                ruta=ruta_mates;
+            }
+            else
+            {
+                ruta=ruta_lengua;
+            }
             FileWriter fw=new FileWriter(ruta, true);
+            
             String texto=elmalodelaclase.getNombre()+separador+
                     elmalodelaclase.getNota()+"\n";
             fw.write(texto);
@@ -38,20 +49,25 @@ public class AccesoFichero {
         FileReader fr=null;
         ArrayList<Alumno> lista_alumnos=new ArrayList<>();
         try {
-            
-            fr = new FileReader(ruta);
-            BufferedReader br=new BufferedReader(fr);
-            String linea=br.readLine();
-            while(linea!=null)
-            {
-                String[] campos=linea.split(separador);
-                String nombre=campos[0];
-                String nota=campos[1];
-                int nota_numerica=Integer.parseInt(nota);
-                Alumno a=new Alumno(nombre, nota_numerica);
-                lista_alumnos.add(a);
-                linea=br.readLine();
-            }
+            String [] rutas={ ruta_mates, ruta_lengua};
+           for (int i=0; i<rutas.length; i++)
+           {
+                fr = new FileReader(rutas[i]);
+                BufferedReader br=new BufferedReader(fr);
+                String linea=br.readLine();
+                while(linea!=null)
+                {
+                    String[] campos=linea.split(separador);
+                    String nombre=campos[0];
+                    String nota=campos[1];
+                    int nota_numerica=Integer.parseInt(nota);
+                    int asignatura=0;
+                    if (i==0){asignatura=1;}else{asignatura=2;}
+                    Alumno a=new Alumno(nombre, nota_numerica,asignatura);//asignatura vale 1 para mates y 2 para lengua
+                    lista_alumnos.add(a);
+                    linea=br.readLine();
+                }
+           } 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AccesoFichero.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

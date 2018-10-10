@@ -26,12 +26,15 @@ public class EntradaSalida {
     }
 
     static Alumno pedirAlumno() {
+        String [] asignaturas={"1-Matemáticas", "2-Lengua"};
+        int asignatura=mostrarMenu(asignaturas);
         System.out.println("Nombre: ");
         String nombre=sc.nextLine();
         System.out.println("Nota: ");
         int nota=sc.nextInt();
         sc.nextLine();
-        Alumno a=new Alumno(nombre, nota);
+        
+        Alumno a=new Alumno(nombre, nota, asignatura);
         return a;
     }
 
