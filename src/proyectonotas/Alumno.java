@@ -36,8 +36,34 @@ public class Alumno {
 
     @Override
     public String toString() {
-        String texto="NOMBRE: "+nombre+" NOTA: "+nota;
+        String texto="NOMBRE: "+nombre+" NOTA: "+obtenerPalabraPorNota(nota);
+        
         return texto; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private String obtenerPalabraPorNota(int nota) {
+        if (nota<=2)
+        {
+            return "MUY DEFICIENTE";
+        }
+        else if (nota>2 && nota<5)
+        {
+            return "INSUFICIENTE";
+        }
+        else if(nota==5)
+        {
+                    return "SUFICIENTE";
+        }
+        else if (nota>5 && nota<8)
+        {
+            return "BIEN";
+        }
+        else if(nota==8)
+        {
+            return "NOTABLE";
+        }
+        return "SOBRESALIENTE";
+            
     }
     
     
